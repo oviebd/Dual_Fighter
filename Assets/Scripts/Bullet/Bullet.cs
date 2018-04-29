@@ -31,8 +31,14 @@ public class Bullet : MonoBehaviour
         _isTargetLost = false;
         _rb = GetComponent<Rigidbody>();
         _spawnAudio.Play();
+        Invoke("ActiveCollisder", .2f);
     }
 
+
+    void ActiveCollisder()
+    {
+        gameObject.GetComponent<Collider>().enabled = true;
+    }
 
     void Update()
     {

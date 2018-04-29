@@ -289,7 +289,7 @@ GameObject:
   - component: {fileID: 16938153}
   - component: {fileID: 16938152}
   - component: {fileID: 16938151}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -570,7 +570,7 @@ GameObject:
   - component: {fileID: 95617663}
   - component: {fileID: 95617665}
   - component: {fileID: 95617664}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1126,7 +1126,7 @@ GameObject:
   - component: {fileID: 249688647}
   - component: {fileID: 249688650}
   - component: {fileID: 249688645}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: First Player
   m_TagString: Player1
   m_Icon: {fileID: 0}
@@ -1751,7 +1751,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 315492630}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bullet Spawn Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5264,7 +5264,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 378941759}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Gun Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10579,6 +10579,34 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1500930120780772, guid: d24c25b3379f5534f8f44c8373145467, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1846026959794548, guid: d24c25b3379f5534f8f44c8373145467, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1404100927665330, guid: d24c25b3379f5534f8f44c8373145467, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1980790939288384, guid: d24c25b3379f5534f8f44c8373145467, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1486388795003218, guid: d24c25b3379f5534f8f44c8373145467, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1156072568438278, guid: d24c25b3379f5534f8f44c8373145467, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252815639072524, guid: d24c25b3379f5534f8f44c8373145467, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d24c25b3379f5534f8f44c8373145467, type: 2}
   m_IsPrefabParent: 0
@@ -11088,7 +11116,7 @@ GameObject:
   - component: {fileID: 1034490238}
   - component: {fileID: 1034490240}
   - component: {fileID: 1034490239}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16660,7 +16688,7 @@ GameObject:
   - component: {fileID: 1644826156}
   - component: {fileID: 1644826155}
   - component: {fileID: 1644826154}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21066,7 +21094,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1887145921}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Gun Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21294,7 +21322,7 @@ GameObject:
   - component: {fileID: 1973609169}
   - component: {fileID: 1973609168}
   - component: {fileID: 1973609167}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Second Player
   m_TagString: Player2
   m_Icon: {fileID: 0}
@@ -21613,7 +21641,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2027920512}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bullet Spawn Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
