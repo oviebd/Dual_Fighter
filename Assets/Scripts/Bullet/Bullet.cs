@@ -25,6 +25,8 @@ public class Bullet : MonoBehaviour
 
 
     private float _dummyForwardSpeed = .1f;
+    private float _bullet_target_maximum_time = .1f;
+    private bool _isBulletMove = false;
 
     void Start()
     {
@@ -32,8 +34,14 @@ public class Bullet : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _spawnAudio.Play();
         Invoke("ActiveCollisder", .2f);
+        Invoke("TargetChecker", _bullet_target_maximum_time);
     }
 
+    void TargetChecker()
+    {
+        _isBulletMove = true;
+
+    }
 
     void ActiveCollisder()
     {
@@ -50,15 +58,19 @@ public class Bullet : MonoBehaviour
             float tempDistance = Vector3.Distance(transform.position, targetedObj.transform.position);
 
             // while bullet is near the obj then It stop follow obj
-            if (tempDistance >= 3.0f && _isTargetLost == false)
+            if (tempDistance >= 3.0f && _isTargetLost == true)
             {
+                //  _rb.velocity = (targetedObj.transform.position - transform.position).normalized * _movingSpeed;
+                // _rb.velocity.y = 0;
+
                 var targetRotation = Quaternion.LookRotation(targetedObj.transform.position - transform.position);
                 _rb.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, 200f));
+
             }
             else
                 _isTargetLost = true;
         }
-        if (m_Hit == false)
+        if (m_Hit == false && _isBulletMove)
         {
             _rb.velocity = transform.forward * _movingSpeed;
         }
@@ -68,23 +80,9 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Try and get the asteroid component of the hit collider.
-        /*Asteroid asteroid = other.GetComponent<Asteroid>();
 
-        // If it doesn't exist return.
-        if (asteroid == null)
-            return;
-
-        // Otherwise call the Hit function of the asteroid.
-        asteroid.Hit();*/
-
-        // The laser has hit something.
         m_Hit = true;
         _rb.isKinematic = true;
-
-        // Restart();
-        // Return the laser to the object pool.
-        //  ObjectPool.ReturnGameObjectToPool(_parentObj);
 
         _bulletHit.SetActive(true);
         Destroy(_parentObj, 0.1f);
@@ -92,12 +90,10 @@ public class Bullet : MonoBehaviour
 
     private IEnumerator Timeout()
     {
-        // Wait for the life time of the laser.
+
         yield return new WaitForSeconds(_bulletLifeDuration);
         Destroy(_parentObj);
-        // If the laser hasn't hit something return it to the object pool.
-        /*if (!m_Hit)
-            ObjectPool.ReturnGameObjectToPool(_parentObj);*/
+
     }
 
     public void Restart()

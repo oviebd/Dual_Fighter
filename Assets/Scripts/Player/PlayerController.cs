@@ -89,10 +89,10 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            // movement = new Vector3(moveHorizontal, 0.0f, moveVertical).normalized * _moveSpeed;
-            //rotation = new Vector3(moveHorizontal, 0.0f, moveVertical).normalized * _loookSensitivity;
-            movement = new Vector3(moveVertical, 0.0f, -moveHorizontal).normalized * _moveSpeed;
-            rotation = new Vector3(moveVertical, 0.0f, -moveHorizontal).normalized * _loookSensitivity;
+            movement = new Vector3(moveHorizontal, 0.0f, moveVertical).normalized * _moveSpeed;
+            rotation = new Vector3(moveHorizontal, 0.0f, moveVertical).normalized * _loookSensitivity;
+            //  movement = new Vector3(moveVertical, 0.0f, -moveHorizontal).normalized * _moveSpeed;
+            //rotation = new Vector3(moveVertical, 0.0f, -moveHorizontal).normalized * _loookSensitivity;
         }
 
         _motor.Rotate(rotation);
