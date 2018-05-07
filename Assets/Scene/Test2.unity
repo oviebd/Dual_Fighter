@@ -280,7 +280,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 308865697}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &314164114
+--- !u!1001 &338885748
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -499,6 +499,7 @@ GameObject:
   - component: {fileID: 472329953}
   - component: {fileID: 472329952}
   - component: {fileID: 472329951}
+  - component: {fileID: 472329955}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -568,6 +569,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
+--- !u!114 &472329955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 472329950}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00106dd9c0bc00244a7d6d345c88c96c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveThis: {fileID: 0}
+  createThis:
+  - {fileID: 100002, guid: 7a1b12428d0af4a4887c705ea60a7a83, type: 2}
+  - {fileID: 100002, guid: 7a1b12428d0af4a4887c705ea60a7a83, type: 2}
+  - {fileID: 100002, guid: 7a1b12428d0af4a4887c705ea60a7a83, type: 2}
+  - {fileID: 100002, guid: 7a1b12428d0af4a4887c705ea60a7a83, type: 2}
+  cooldown: 0
+  changeCooldown: 0
+  selected: 1
 --- !u!1 &507104861
 GameObject:
   m_ObjectHideFlags: 0
@@ -1979,7 +2000,7 @@ GameObject:
   - component: {fileID: 1945341167}
   - component: {fileID: 1945341166}
   - component: {fileID: 1945341165}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}

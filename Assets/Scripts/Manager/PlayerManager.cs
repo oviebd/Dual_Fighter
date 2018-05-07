@@ -10,12 +10,17 @@ public class PlayerManager
     [HideInInspector] public GameObject m_Instance;
 
 
-    private PlayerMovement m_Movement;
+    private PlayerMovement _movement;
+    private PlayerWeaponManager _playerWeaponManager;
 
 
     public void Setup()
     {
-        m_Movement = m_Instance.GetComponent<PlayerMovement>();
-        m_Movement.playerNum = playerNum;
+        _movement = m_Instance.GetComponent<PlayerMovement>();
+        _playerWeaponManager = m_Instance.GetComponent<PlayerWeaponManager>();
+
+        _movement.playerNum = playerNum;
+        _playerWeaponManager.playerNum = playerNum;
+        m_Instance.name = "Palyer  " + playerNum;
     }
 }
