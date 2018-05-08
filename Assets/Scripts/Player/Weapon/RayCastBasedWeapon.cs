@@ -21,13 +21,16 @@ public class RayCastBasedWeapon : MonoBehaviour
         _playerNum = _playerWeaponManager.playerNum;
 
         _prevBulletSpawnTime = Time.time;
-        _fireBtn = "space";
+        // _fireBtn = "P" + _playerNum + "Attack2";
+        _fireBtn = "P" + _playerNum + "Attack2";
+
+        Debug.Log("Raycast " + _fireBtn);
     }
 
 
     void Update()
     {
-        if (Input.GetKeyDown(_fireBtn))
+        if (Input.GetButtonDown(_fireBtn))
         {
             if (Time.time - _prevBulletSpawnTime >= _bulletCoolDownTime)
             {

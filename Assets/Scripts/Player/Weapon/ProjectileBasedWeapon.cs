@@ -21,13 +21,13 @@ public class ProjectileBasedWeapon : MonoBehaviour
         _playerNum = _playerWeaponManager.playerNum;
 
         _prevBulletSpawnTime = Time.time;
-        _fireBtn = "space";
+        _fireBtn = "P" + _playerNum + "Attack1";
     }
 
 
     void Update()
     {
-        if (Input.GetKeyDown(_fireBtn))
+        if (Input.GetButtonDown(_fireBtn))
         {
             if (Time.time - _prevBulletSpawnTime >= _bulletCoolDownTime)
             {
@@ -71,6 +71,7 @@ public class ProjectileBasedWeapon : MonoBehaviour
         ProjectileBullet bullet = bullet_obj.GetComponent<ProjectileBullet>();
 
         bullet.SetTarget(hitObj);
+        bullet.playerNum = _playerNum;
 
     }
 }

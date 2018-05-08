@@ -435,7 +435,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb7b261d5c7f9c54aa381a288279aa23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movingSpeed: 10
+  playerNum: 0
+  _movingSpeed: 30
+  _hitParticle: {fileID: 1681135718779740}
 --- !u!122 &122865193349209056
 Halo:
   m_ObjectHideFlags: 1
@@ -455,7 +457,7 @@ SphereCollider:
   m_GameObject: {fileID: 1504255251150248}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}

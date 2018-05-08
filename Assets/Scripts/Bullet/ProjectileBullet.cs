@@ -5,7 +5,10 @@ public class ProjectileBullet : MonoBehaviour
 
     [HideInInspector] GameObject targetedObj;
 
+    [HideInInspector] public int playerNum; //Which player shoot the bullet
+
     [SerializeField] private float _movingSpeed = 10f;
+    [SerializeField] private GameObject _hitParticle;
 
     private bool _isMoving;
     private Rigidbody _rb;
@@ -21,7 +24,9 @@ public class ProjectileBullet : MonoBehaviour
 
     public void SetTarget(GameObject target)
     {
+
         targetedObj = target;
+
         _isMoving = true;
         Debug.Log("Target set : is moving" + _isMoving);
     }
@@ -39,9 +44,13 @@ public class ProjectileBullet : MonoBehaviour
 
     void MoveTowardsATarget()
     {
-        float tempDistance = Vector3.Distance(transform.position, targetedObj.transform.position);
+        Vector3 targetPos = new Vector3(targetedObj.transform.position.x, targetedObj.transform.position.y + 1, targetedObj.transform.position.z);
 
-        var targetRotation = Quaternion.LookRotation(targetedObj.transform.position - transform.position);
+        float tempDistance = Vector3.Distance(transform.position, targetPos);
+
+
+
+        var targetRotation = Quaternion.LookRotation(targetPos - transform.position);
         _rb.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, 200f));
 
         _rb.velocity = transform.forward * _movingSpeed;
@@ -52,5 +61,25 @@ public class ProjectileBullet : MonoBehaviour
     {
         Vector3 p = new Vector3(0, 0, 1);
         _rb.velocity = transform.forward * _movingSpeed;
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        string collObjTag = other.gameObject.tag;
+
+        if (other.GetComponent<PlayerWeaponManager>() != null)
+        {
+            int playerNumInPlayer = other.GetComponent<PlayerWeaponManager>().playerNum;
+
+            if (playerNumInPlayer != playerNum)
+            {
+                _rb.isKinematic = true;
+                _hitParticle.SetActive(true);
+                Destroy(gameObject, 0.1f);
+            }
+
+        }
+
     }
 }
