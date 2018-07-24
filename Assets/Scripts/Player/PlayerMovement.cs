@@ -2,32 +2,32 @@
 
 public class PlayerMovement : MonoBehaviour
 {
-
-    public int playerNum;
-
-    [SerializeField] float _moveSpeed = 5f;
-    [SerializeField] float _loookSensitivity = 10f;
-
-
-
+    //Player Setting
+    [HideInInspector]  public int playerNum;
     private string _veryticalInput;
     private string _horizontallInput;
 
 
-    Vector3 _velocity;
-    Vector3 _rotation;
-
     private Rigidbody _rb;
-    private Animator _anim;
 
+    //Move 
+    Vector2 inputData = new Vector2();
+    public float walkSpeed = 2;
+    public float runSpeed = 6;
 
-    private string _move_forward_anim = "move_forward";
-    private string _rotation_anim = "move_rotate";
-    private string _IsWalk_anim = "IsWalk";
+    public float turnSmoothTime = 0.2f;
+    float turnSmoothVelocity;
 
+    public float speedSmoothTime = 0.1f;
+    float speedSmoothVelocity;
+    float currentSpeed;
+
+    Animator _anim;
+    private string _speed_anim = "Speed";
 
 
     //Dash
+    public float dashSpeed = 2.0f;
     string m_Dash;
     bool m_DashInput;
 
@@ -38,6 +38,9 @@ public class PlayerMovement : MonoBehaviour
     Vector3 dash_Direction;
 
     public GameObject trailRenderer;
+
+
+  
 
     void Awake()
     {
@@ -58,99 +61,53 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-
-        GetMoveMentInput();
-
+        inputData = new Vector2(Input.GetAxisRaw(_horizontallInput), Input.GetAxisRaw(_veryticalInput));
+        m_DashInput = Input.GetButtonDown(m_Dash);
     }
 
     void FixedUpdate()
     {
-        _rb.velocity = Vector3.zero;
-        _rb.angularVelocity = Vector3.zero;
-
-        if (!dashing)
-        {
-            PerformMovement();
-            PerformRotation();
-            CheckMoveAnim();
-        }
+        MovePlayer();
 
         if (m_DashInput || dashing)
         {
             Dash();
         }
-
-
     }
 
-
-    float moveHorizontal;
-    float moveVertical;
-
-    void GetMoveMentInput()
+    void MovePlayer()
     {
-        moveHorizontal = Input.GetAxisRaw(_horizontallInput);
-        moveVertical = Input.GetAxisRaw(_veryticalInput);
-        m_DashInput = Input.GetButtonDown(m_Dash);
+        
+        Vector2 inputDir = inputData.normalized;
 
-        if (moveHorizontal == 0 && moveVertical == 0)
+        if (inputDir != Vector2.zero)
         {
-            //  Debug.Log("Ho ho zero");
-            _velocity = Vector3.zero;
-            _rotation = Vector3.zero;
-        }
-        else
-        {
-            _velocity = new Vector3(moveHorizontal, 0.0f, moveVertical).normalized * _moveSpeed;
-            _rotation = new Vector3(moveHorizontal, 0.0f, moveVertical).normalized *
-                _loookSensitivity;
+            float targetRotation = (Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg) ;
+            // subtract 90 because samurai plane007's rotation is not zero.
+            transform.eulerAngles = Vector3.up * (Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg);
+            //  transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime);
 
         }
+
+        bool running = Input.GetKey(KeyCode.LeftShift);
+        float targetSpeed = (running ? runSpeed : walkSpeed) * inputDir.magnitude;
+        currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
+
+        transform.Translate(transform.forward * currentSpeed * Time.deltaTime, Space.World);
+
+        //float animationSpeed = (running ? 3.0f : 6.5f) * inputDir.magnitude;
+        //_anim.SetFloat(_speed_anim, animationSpeed, speedSmoothTime, Time.deltaTime);
     }
 
-
-
-
-    void CheckMoveAnim()
-    {
-        if (_velocity != Vector3.zero || _rotation != Vector3.zero)
-        {
-            _anim.SetBool(_IsWalk_anim, true);
-        }
-        else
-        {
-            _anim.SetBool(_IsWalk_anim, false);
-        }
-    }
-
-    void PerformMovement()
-    {
-        _rb.velocity = _velocity * _moveSpeed;
-
-    }
-
-    void PerformRotation()
-    {
-
-        if (_rotation != Vector3.zero)
-        {
-
-            if (_rotation != Vector3.zero)
-            {
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_rotation), 1.0F);
-
-            }
-        }
-
-    }
+  
 
     void Dash()
     {
-        if (!dashing)
+        /*if (!dashing)
         {
             dashing = true;
 
-            dash_Direction = new Vector3(moveHorizontal, 0f, moveVertical).normalized;
+            dash_Direction = new Vector3(inputData.x, 0f, inputData.y).normalized;
             if (dash_Direction == Vector3.zero)
                 dash_Direction = transform.forward;
 
@@ -164,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
         dash_Time += Time.deltaTime;
 
 
-        _rb.velocity = dash_Direction * dash_SpeedMultiplier * _moveSpeed;
+       _rb.velocity = dash_Direction * dash_SpeedMultiplier * dashSpeed;
 
         if (dash_Time >= dash_Duration && dashing)
         {
@@ -173,6 +130,6 @@ public class PlayerMovement : MonoBehaviour
             _rb.velocity = Vector3.zero;
 
             trailRenderer.SetActive(false);
-        }
+        }*/
     }
 }

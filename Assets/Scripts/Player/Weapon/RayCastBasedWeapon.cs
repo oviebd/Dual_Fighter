@@ -14,10 +14,18 @@ public class RayCastBasedWeapon : MonoBehaviour
 
     private PlayerWeaponManager _playerWeaponManager;
 
+
+    private FieldOfViewHelper _fieldOfViewHelper;
+
+    [SerializeField] float viewAngle;
+    [SerializeField] float viewRadious;
+
     void Start()
     {
 
         _playerWeaponManager = gameObject.GetComponent<PlayerWeaponManager>();
+        _fieldOfViewHelper = gameObject.GetComponent<FieldOfViewHelper>();
+
         _playerNum = _playerWeaponManager.playerNum;
 
         _prevBulletSpawnTime = Time.time;
@@ -30,10 +38,10 @@ public class RayCastBasedWeapon : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown(_fireBtn))
+       if (Input.GetButtonDown(_fireBtn))
         {
             if (Time.time - _prevBulletSpawnTime >= _bulletCoolDownTime)
-            {
+            { 
                 _prevBulletSpawnTime = Time.time;
                 // Debug.Log("Fire Pressed");
                 //SpawnBullet(_gunPos);
@@ -45,7 +53,7 @@ public class RayCastBasedWeapon : MonoBehaviour
     }
     void CheckDestination()
     {
-        RaycastHit hit;
+        /*RaycastHit hit;
         // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Debug.DrawRay(_gunPos.position, _gunPos.forward * 100, Color.green);
 
@@ -62,6 +70,12 @@ public class RayCastBasedWeapon : MonoBehaviour
         else
         {
             //Debug.Log("Hit Not Found ");
+        }*/
+
+        Transform hitObjTransform =  _fieldOfViewHelper.GetNearestObj(20, 40);
+        if (hitObjTransform != null)
+        {
+            CreateEffect(hitObjTransform.gameObject);
         }
     }
 

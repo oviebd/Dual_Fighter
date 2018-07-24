@@ -13,13 +13,20 @@ public class ProjectileBasedWeapon : MonoBehaviour
     private string _fireBtn;
 
     private PlayerWeaponManager _playerWeaponManager;
+    private FieldOfViewHelper _fieldOfViewHelper;
+
+    public float viewRadious;
+    [Range(0, 360)]
+    public float viewAngle;
+
 
     void Start()
     {
-
         _playerWeaponManager = gameObject.GetComponent<PlayerWeaponManager>();
-        _playerNum = _playerWeaponManager.playerNum;
+        _fieldOfViewHelper = gameObject.GetComponent<FieldOfViewHelper>();
 
+        _playerNum = _playerWeaponManager.playerNum;
+        Debug.Log("Player Num : "  + _playerNum);
         _prevBulletSpawnTime = Time.time;
         _fireBtn = "P" + _playerNum + "Attack1";
     }
@@ -42,19 +49,16 @@ public class ProjectileBasedWeapon : MonoBehaviour
 
     void CheckDestination()
     {
-        RaycastHit hit;
 
-        if (Physics.Raycast(_gunPos.position, _gunPos.forward, out hit, 100f))
+        Transform hitObjTransform = _fieldOfViewHelper.GetNearestObj(viewRadious, viewAngle);
+
+        if (hitObjTransform != null)
         {
-
-            GameObject hitObj = hit.transform.gameObject;
-            RayCastBasedWeapon rayCastBasedWeapon = hitObj.GetComponent<RayCastBasedWeapon>();
-
-            InstantiateBullet(hitObj);
-
+            InstantiateBullet(hitObjTransform.gameObject);
         }
         else
         {
+
             InstantiateBullet(null);
         }
     }

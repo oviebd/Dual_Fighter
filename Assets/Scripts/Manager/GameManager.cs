@@ -7,8 +7,6 @@ public class GameManager : MonoBehaviour
     public GameObject playerPrefab;
 
 
-
-
     void Start()
     {
         SpawnAllPlayer();
